@@ -29,10 +29,10 @@ void Table::menu()
 
         switch(key){
             case 1:
-                show();
+                //show();
                 break;
             case 2:
-                add();
+                //add();
                 break;
             case 3:
                 //del();
