@@ -2,7 +2,7 @@
 
 using namespace std;
 
-bool Student::set()
+bool Student::setAll()
 {
     return SetInt("学号", number)
         && SetString("学生名", name, STR_LEN)
@@ -20,7 +20,7 @@ void Student::showCols()
     cout << "学号\t 学生名\t 性别\t 年龄" << endl;
 }
 
-void Student::show() const
+void Student::showValues() const
 {
     cout << number << "\t "
         << name << "\t "
@@ -45,10 +45,12 @@ int Student::chooseCol()
     int key;
 
     if(!(cin >> key)){
-        cout << "输入错误，" << endl;
+        cout << "输入错误，";
         clearInput();
         return 0;
     }
+
+    clearInput();
 
     switch(key){
         case NUMBER:
@@ -58,12 +60,12 @@ int Student::chooseCol()
             return key;
         
         default:
-            cout << "输入的数字无效，" << endl;
+            cout << "输入的数字无效，";
             return 0;
     }
 }
 
-bool Student::setRange(int col, Range &range)
+bool Student::specRange(int col, Range &range)
 {
     switch(col){
         case NAME:
@@ -97,6 +99,26 @@ bool Student::match(int col, const Range &range) const
         
         case AGE:
             return (age >= range.min) && (age <= range.max);
+        
+        default:
+            return false;
+    }
+}
+
+bool Student::setValue(int col)
+{
+    switch(col){
+        case NUMBER:
+            return SetInt("学号", number);
+
+        case NAME:
+            return SetString("学生名", name, STR_LEN);
+        
+        case SEX:
+            return SetSex(sex);
+        
+        case AGE:
+            return SetInt("年龄", age, 0, 200);
         
         default:
             return false;

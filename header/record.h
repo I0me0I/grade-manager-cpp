@@ -23,13 +23,14 @@ class Student{
         };
     
     public:
-        bool set();
+        bool setAll();
         bool compPrim(const Student &s) const;
         static void showCols();
-        void show() const;
+        void showValues() const;
         bool setPrim();
         static int chooseCol();
-        static bool setRange(int col, Range &range);
+        static bool specRange(int col, Range &range);
         bool match(int col, const Range &range) const;
+        bool setValue(int col);
 };
 

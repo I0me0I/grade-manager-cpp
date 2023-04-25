@@ -19,6 +19,7 @@ class Table{
         void show() const;
         void add();
         void del();
+        void modify();
         void query();
 };
 
@@ -62,7 +63,7 @@ void Table<Record>::menu()
                 del();
                 break;
             case 4:
-                //modify();
+                modify();
                 break;
             case 5:
                 query();
@@ -101,7 +102,7 @@ void Table<Record>::add()
 
         Record rec;
 
-        if(rec.set()){
+        if(rec.setAll()){
             if(findRec(rec) == NOT_FOUND){
                 records.push_back(rec);
                 cout << "录入成功！" << endl;
@@ -131,7 +132,7 @@ void Table<Record>::show() const
             (i < page * REC_PER_PAGE) && (i < records.size());
             i++
         ){
-            records[i].show();
+            records[i].showValues();
         }
 
         cout << endl
@@ -204,6 +205,44 @@ void Table<Record>::del()
 }
 
 template<typename Record>
+void Table<Record>::modify()
+{
+    cout << endl
+        << "--- 修改<" << tabName << ">中的记录 ---" << endl
+        << endl
+        << "请输入以下信息" << endl;
+    
+    Record rec;
+
+    do{
+        if(!rec.setPrim()){
+            break;
+        }
+
+        int pos = findRec(rec);
+        if(pos == NOT_FOUND){
+            cout << "未找到记录，";
+            break;
+        }
+
+        cout << "选择你要修改的属性" << endl;
+
+        int col = Record::chooseCol();
+        if(col == 0){
+            break;
+        }
+
+        cout << "输入修改后的值" << endl;
+
+        if(records[pos].setValue(col)){
+            cout << "修改成功！" << endl;
+            return;
+        }
+    }while(false);
+    cout << "修改失败！" << endl;
+}
+
+template<typename Record>
 void Table<Record>::query()
 {
     cout << endl
@@ -218,7 +257,7 @@ void Table<Record>::query()
         }
 
         Range range;
-        if(!Record::setRange(col, range)){
+        if(!Record::specRange(col, range)){
             break;
         }
 
@@ -241,4 +280,3 @@ void Table<Record>::query()
 
     cout << "查询失败！" << endl;
 }
-
