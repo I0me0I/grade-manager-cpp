@@ -2,6 +2,12 @@
 
 using namespace std;
 
+Manager::Manager()
+: stuTab("学生信息表")
+{
+
+}
+
 void Manager::menu()
 {
     while(1){
@@ -35,7 +41,7 @@ void Manager::menu()
                 //exportFile();
                 break;
             case 3:
-                //studentTable.menu();
+                stuTab.menu();
                 break;
             case 4:
                 //gradeTable.menu();

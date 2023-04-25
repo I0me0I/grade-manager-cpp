@@ -2,9 +2,10 @@
 
 class Manager{
     private:
-
+        Table<Student> stuTab;
     public:
+        Manager();
         void menu();
         void importData();
-        void exportData();
+        void exportData() const;
 };
