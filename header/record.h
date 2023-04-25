@@ -10,5 +10,8 @@ class Student{
     public:
         bool set();
         bool compPrim(const Student &s) const;
+        static void showColumns();
+        void show() const;
+        bool setPrim();
 };
 

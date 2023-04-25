@@ -29,7 +29,7 @@ void Table<Record>::menu()
 {
     while(1){
         cout << endl 
-            << "--- " << tabName << " ---" << endl
+            << "--- 正在操作<" << tabName << "> ---" << endl
             << endl
             << "1.显示记录" << endl
             << "2.添加记录" << endl
@@ -52,13 +52,13 @@ void Table<Record>::menu()
 
         switch(key){
             case 1:
-                //show();
+                show();
                 break;
             case 2:
                 add();
                 break;
             case 3:
-                //del();
+                del();
                 break;
             case 4:
                 //modify();
@@ -90,12 +90,11 @@ int Table<Record>::findRec(const Record &r) const
     return NOT_FOUND;
 }
 
-
 template<typename Record>
 void Table<Record>::add()
 {
     cout << endl
-        << "--- 添加记录 ---" << endl
+        << "--- 向<" << tabName << ">添加记录 ---" << endl
         << endl
         << "请输入以下信息" << endl;
 
@@ -113,5 +112,93 @@ void Table<Record>::add()
         }
 
         cout << "录入失败！" << endl;
+}
+
+template<typename Record>
+void Table<Record>::show() const
+{
+    int page = 1;
+
+    while(1){
+        cout << endl
+            << "--- " << tabName << " ---" << endl
+            << endl;
+        Record::showColumns();
+        
+        for(
+            int i = (page - 1) * REC_PER_PAGE;
+            (i < page * REC_PER_PAGE) && (i < records.size());
+            i++
+        ){
+            records[i].show();
+        }
+
+        cout << endl
+            << "正在显示 第" << page << "页" << endl
+            << "1.上一页" << endl
+            << "2.下一页" << endl
+            << "0.返回" << endl
+            << endl
+            << "选择你要执行的操作:";
+        
+        int key;
+
+        if(!(cin >> key)){
+            cout << "输入错误，请重试！" << endl << endl;
+            clearInput();
+            continue;            
+        }
+
+        clearInput();
+
+        switch(key){
+            case 1:
+                if(page == 1){
+                    cout << "已经是第一页!" << endl;
+                }
+                else{
+                    page--;
+                }
+                break;
+            case 2:
+                if(page * REC_PER_PAGE >= records.size()){
+                    cout << "已经是最后一页!" << endl;
+                }
+                else{
+                    page++;
+                }
+                break;
+            case 0:
+                return;
+            default:
+                cout << "输入的数字无效，请重新输入！" << endl << endl;
+        }
+    }
+}
+
+template<typename Record>
+void Table<Record>::del()
+{
+    cout << endl
+        << "--- 删除<" << tabName << ">中的记录 ---" << endl
+        << endl
+        << "请输入以下信息" << endl;
+    
+    Record rec;
+
+    if(rec.setPrim()){
+        int pos = findRec(rec);
+
+        if(pos != NOT_FOUND){
+            records.erase(records.begin() + pos);
+            cout << "删除成功！" << endl;
+            return;
+        }
+        else{
+            cout << "未找到记录，";
+        }
+    }
+
+    cout << "删除失败！" << endl;
 }
 

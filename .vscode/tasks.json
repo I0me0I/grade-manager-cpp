@@ -10,8 +10,7 @@
                 "${workspaceFolder}\\source\\*.cpp",
                 "-o",
                 "${workspaceFolder}\\grademanager.exe",
-                "-fexec-charset=GBK",
-                "-std=c++17"
+                "-fexec-charset=GBK"
             ],
             "options": {
                 "cwd": "${workspaceFolder}"
