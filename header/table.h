@@ -19,6 +19,7 @@ class Table{
         void show() const;
         void add();
         void del();
+        void query();
 };
 
 
@@ -64,7 +65,7 @@ void Table<Record>::menu()
                 //modify();
                 break;
             case 5:
-                //query();
+                query();
                 break;
             case 0:
                 return;
@@ -123,7 +124,7 @@ void Table<Record>::show() const
         cout << endl
             << "--- " << tabName << " ---" << endl
             << endl;
-        Record::showColumns();
+        Record::showCols();
         
         for(
             int i = (page - 1) * REC_PER_PAGE;
@@ -200,5 +201,44 @@ void Table<Record>::del()
     }
 
     cout << "删除失败！" << endl;
+}
+
+template<typename Record>
+void Table<Record>::query()
+{
+    cout << endl
+        << "--- 查询<" << tabName << ">中的记录 ---" << endl
+        << endl
+        << "请指定属性和值范围" << endl;
+
+    do{
+        int col = Record::chooseCol();
+        if(col == 0){
+            break;
+        }
+
+        Range range;
+        if(!Record::setRange(col, range)){
+            break;
+        }
+
+        Table<Record> tmp("查询结果集");
+
+        for(auto rec : records){
+            if(rec.match(col, range)){
+                tmp.records.push_back(rec);
+            }
+        }
+
+        if(tmp.records.size() > 0){
+            tmp.show();
+            return;
+        }
+        else{
+            cout << "未找到匹配记录，";
+        }
+    }while(false);
+
+    cout << "查询失败！" << endl;
 }
 

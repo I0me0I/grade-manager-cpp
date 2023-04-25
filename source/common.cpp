@@ -2,7 +2,6 @@
 
 using namespace std;
 
-
 bool SetString(const char *name, char *str, int n)
 {
     cout << name << "：";
@@ -21,7 +20,6 @@ bool SetString(const char *name, char *str, int n)
     str[len] = '\0';
     return true; 
 }
-
 
 bool SetInt(const char *name, int &val, int min, int max)
 {
@@ -46,7 +44,6 @@ bool SetInt(const char *name, int &val, int min, int max)
 
     return true;
 }
-
 
 bool SetSex(bool &sex)
 {

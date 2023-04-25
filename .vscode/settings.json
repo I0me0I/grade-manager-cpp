@@ -3,6 +3,15 @@
         "limits": "cpp",
         "ostream": "cpp",
         "iostream": "cpp",
-        "vector": "cpp"
-    }
+        "vector": "cpp",
+        "*.tcc": "cpp",
+        "unordered_map": "cpp",
+        "memory_resource": "cpp",
+        "algorithm": "cpp",
+        "memory": "cpp",
+        "streambuf": "cpp",
+        "tuple": "cpp",
+        "utility": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

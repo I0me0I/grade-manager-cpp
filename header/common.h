@@ -6,7 +6,7 @@
 using std::string;
 using std::vector;
 
-const int NAME_LEN = 20;
+const int STR_LEN = 20;
 
 inline void clearInput()
 {
