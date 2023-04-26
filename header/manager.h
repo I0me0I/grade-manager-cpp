@@ -5,6 +5,7 @@ class Manager{
         Table<Student> stuTab;
         Table<Course> couTab;
         Table<Grade> gradTab;
+
     public:
         Manager();
         void menu();
