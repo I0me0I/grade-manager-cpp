@@ -21,6 +21,8 @@ class Table{
         void del();
         void modify();
         void query();
+        void save(ofstream &fout) const;
+        void load(ifstream &fin);
 };
 
 
@@ -279,4 +281,28 @@ void Table<Record>::query()
     }while(false);
 
     cout << "查询失败！" << endl;
+}
+
+template<typename Record>
+void Table<Record>::save(ofstream &fout) const
+{
+    auto n = records.size();
+    fout.write((char *)&n, sizeof(n));
+
+    for( auto rec : records){
+        fout.write((char *)&rec, sizeof(rec));
+    }
+}
+
+template<typename Record>
+void Table<Record>::load(ifstream &fin)
+{
+    auto n = records.size();
+    fin.read((char *)&n, sizeof(n));
+
+    Record rec;
+    for(int i = 0; i < n; i++){
+        fin.read((char *)&rec, sizeof(rec));
+        records.push_back(rec);
+    }
 }

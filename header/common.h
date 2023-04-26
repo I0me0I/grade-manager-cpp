@@ -2,9 +2,12 @@
 #include<vector>
 #include<limits>
 #include<climits>
+#include<fstream>
 
 using std::string;
 using std::vector;
+using std::ifstream;
+using std::ofstream;
 
 const int STR_LEN = 20;
 

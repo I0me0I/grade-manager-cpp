@@ -70,7 +70,7 @@ bool Student::specRange(int col, Range &range)
     switch(col){
         case NAME:
         case SEX:
-            return SetString("包含的值", range.substr, STR_LEN);
+            return SetString("包含的字符串", range.substr, STR_LEN);
         
         case NUMBER:
         case AGE:
